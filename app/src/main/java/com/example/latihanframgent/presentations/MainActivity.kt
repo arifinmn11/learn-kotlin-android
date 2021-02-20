@@ -10,19 +10,21 @@ class MainActivity : AppCompatActivity(), onNavigationListener {
 
     private lateinit var splashScreenFragment: SplashScreenFragment
     private lateinit var registrationFragment: RegistrationFragment
+    private lateinit var boardFragment: BoardFragment
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-
         splashScreenFragment = SplashScreenFragment.newInstance(this)
         switchFragment(splashScreenFragment)
 
     }
 
     override fun onRegistration(player1: String, player2: String) {
+        boardFragment = BoardFragment.newInstance(player1, player2, this)
+        switchFragment(boardFragment)
     }
 
     override fun onSplash() {

@@ -26,7 +26,7 @@ class RegistrationFragment(private val onNavigationListener: onNavigationListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btnPlay.setOnClickListener {
-            val player1 = etPlayerName2.text
+            val player1 = etPlayerName1.text
             val player2 = etPlayerName2.text
             onNavigationListener.onRegistration(
                 player1 = player1.toString(),
