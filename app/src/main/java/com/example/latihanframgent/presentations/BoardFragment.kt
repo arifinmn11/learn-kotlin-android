@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.latihanframgent.R
+import com.example.latihanframgent.utils.board
 
 
 class BoardFragment : Fragment() {
     var activePlayer = ""
+    var listBoard = board;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +26,6 @@ class BoardFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_board, container, false)
     }
-
 
 
     companion object {
