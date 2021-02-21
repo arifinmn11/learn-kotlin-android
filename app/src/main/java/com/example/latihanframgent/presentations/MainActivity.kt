@@ -16,8 +16,22 @@ class MainActivity : AppCompatActivity(), OnNavigationListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        addItemFragment = AddItemFragment.newInstance(this)
+
+
+        supportActionBar?.hide()
+
+        val addItemFragment = AddItemFragment.newInstance(this)
+        val listItemFragment = ListItemFragment.newInstance(this)
+
         switchFragment(addItemFragment)
+
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_add -> switchFragment(addItemFragment)
+                R.id.nav_list -> switchFragment(listItemFragment)
+            }
+            false
+        }
     }
 
     companion object {
@@ -26,23 +40,11 @@ class MainActivity : AppCompatActivity(), OnNavigationListener {
     }
 
 
-    fun switchFragment(fragment: Fragment) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-
-        fragmentTransaction
-            .replace(R.id.fragment_container, fragment)
-            .commit()
-    }
-
-    fun goToAddNav(view: View) {
-        addItemFragment = AddItemFragment.newInstance(this)
-        switchFragment(addItemFragment)
-    }
-
-    fun goToListNav(view: View) {
-        listItemFragment = ListItemFragment.newInstance(this)
-        switchFragment(listItemFragment)
-    }
+    private fun switchFragment(fragment: Fragment) =
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragment_container, fragment)
+            commit()
+        }
 
     override fun menuItem() {
         addItemFragment = AddItemFragment.newInstance(this)

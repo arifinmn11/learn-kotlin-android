@@ -13,27 +13,10 @@ import com.example.latihanframgent.utils.ItemList
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var itemName: TextView
-        var itemQuantity: TextView
-        var itemNote: TextView
+        var itemName: TextView = itemView.findViewById(R.id.tvItemName)
+        var itemQuantity: TextView = itemView.findViewById(R.id.tvQuantity)
+        var itemNote: TextView = itemView.findViewById(R.id.tvNote)
 
-        init {
-            itemName = itemView.findViewById(R.id.tvItemName)
-            itemQuantity = itemView.findViewById(R.id.tvQuantity)
-            itemNote = itemView.findViewById(R.id.tvNote)
-
-            itemView.setOnClickListener {
-                var position: Int = adapterPosition
-                val context = itemView.context
-                val intent = Intent(context, ListItemFragment::class.java).apply {
-                    putExtra("NUMBER", position)
-                    putExtra("CODE", itemName.text)
-                    putExtra("CATEGORY", itemQuantity.text)
-                    putExtra("CONTENT", itemNote.text)
-                }
-                context.startActivity(intent)
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
