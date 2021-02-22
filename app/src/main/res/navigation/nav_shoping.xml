@@ -9,20 +9,41 @@
         android:id="@+id/addItemFragment"
         android:name="com.example.latihanframgent.AddItemFragment"
         android:label="fragment_add_item2"
-        tools:layout="@layout/fragment_add_item2" >
-        <action
-            android:id="@+id/action_addItemFragment_to_listFragment"
-            app:destination="@id/listFragment"
-            app:enterAnim="@anim/fragment_close_enter" />
-    </fragment>
+        tools:layout="@layout/fragment_add_item2"/>
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.latihanframgent.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
-        <action
-            android:id="@+id/action_listFragment_to_addItemFragment"
-            app:destination="@id/addItemFragment"
-            app:enterAnim="@anim/fragment_close_enter" />
-    </fragment>
+        tools:layout="@layout/fragment_list" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.latihanframgent.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.latihanframgent.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <action
+        android:id="@+id/action_global_addItemFragment"
+        app:destination="@id/addItemFragment"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_listFragment"
+        app:destination="@id/listFragment"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_historyFragment"
+        app:destination="@id/historyFragment"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_accountFragment"
+        app:destination="@id/accountFragment"
+        app:enterAnim="@anim/fragment_open_enter"
+        app:launchSingleTop="true" />
+
 </navigation>

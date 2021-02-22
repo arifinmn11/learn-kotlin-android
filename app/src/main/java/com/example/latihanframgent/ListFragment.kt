@@ -40,8 +40,8 @@ class ListFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when (v) {
-            btnNavListItem -> navController.navigate(R.id.action_listFragment_to_addItemFragment)
-        }
+//        when (v) {
+//            btnNavListItem -> navController.navigate(R.id.action_listFragment_to_addItemFragment)
+//        }
     }
 }
