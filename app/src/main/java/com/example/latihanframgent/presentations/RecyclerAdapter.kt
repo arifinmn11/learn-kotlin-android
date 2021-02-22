@@ -16,6 +16,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         var itemName: TextView = itemView.findViewById(R.id.tvItemName)
         var itemQuantity: TextView = itemView.findViewById(R.id.tvQuantity)
         var itemNote: TextView = itemView.findViewById(R.id.tvNote)
+        var itemDate: TextView = itemView.findViewById(R.id.tvDate)
 
     }
 
@@ -31,6 +32,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         holder.itemName.text = ItemList[position].itemName
         holder.itemQuantity.text = ItemList[position].quantity.toString()
         holder.itemNote.text = ItemList[position].note
+        holder.itemDate.text = ItemList[position].date
 
     }
 }

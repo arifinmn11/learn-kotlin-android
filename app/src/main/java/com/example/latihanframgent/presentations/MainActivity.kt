@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity(), OnNavigationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         supportActionBar?.hide()
 
         val addItemFragment = AddItemFragment.newInstance(this)

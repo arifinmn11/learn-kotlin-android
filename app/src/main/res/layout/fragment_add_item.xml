@@ -48,41 +48,49 @@
         <EditText
             android:id="@+id/etShopDate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:hint="Date"
-            android:inputType="datetime" />
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_edit_text"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/etItem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:hint="Name Item"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_edit_text"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/etQuantity"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:hint="Quantity"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_edit_text"
             android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/etNote"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:hint="Note"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_edit_text"
             android:inputType="text" />
     </LinearLayout>
 

@@ -1,21 +1,21 @@
 package com.example.latihanframgent.presentations
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.latihanframgent.R
 import com.example.latihanframgent.utils.Item
 import kotlinx.android.synthetic.main.fragment_add_item.*
-import kotlinx.android.synthetic.main.fragment_list_item.*
 import java.util.*
 
 
 class AddItemFragment(private val onNavigationListener: OnNavigationListener) : Fragment() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -30,18 +30,51 @@ class AddItemFragment(private val onNavigationListener: OnNavigationListener) : 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        buttonAdd.setOnClickListener {
-            val item = Item(
-                quantity = etQuantity.text.toString().toInt(),
-                note = etNote.text.toString(),
-                itemName = etItem.text.toString()
-            )
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            if (item != null) {
+        etShopDate.setInputType(InputType.TYPE_NULL)
+        etShopDate.setOnClickListener(View.OnClickListener {
+            val datePickerDialog = activity?.let { it1 ->
+                DatePickerDialog(
+                    it1, DatePickerDialog.OnDateSetListener
+                    { view, year, monthOfYear, dayOfMonth ->
+                        etShopDate.setText(
+                            "$year/$monthOfYear/$dayOfMonth",
+                            TextView.BufferType.EDITABLE
+                        );
+                    }, year, month, day
+                )
+            }
+            datePickerDialog?.show()
+        })
+
+
+        buttonAdd.setOnClickListener {
+            if (etShopDate.text.toString() != "" &&
+                etQuantity.text.toString() != "" &&
+                etItem.text.toString() != "" &&
+                etNote.text.toString() != ""
+            ) {
+                val item = Item(
+                    date = etShopDate.text.toString(),
+                    quantity = etQuantity.text.toString().toInt(),
+                    note = etNote.text.toString(),
+                    itemName = etItem.text.toString()
+                )
                 onNavigationListener.addItem(item)
+                clearInput()
                 Toast.makeText(
                     activity,
                     "Item : ${item.itemName} has been added",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    activity,
+                    "Input not be blank!",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -49,7 +82,10 @@ class AddItemFragment(private val onNavigationListener: OnNavigationListener) : 
     }
 
     private fun clearInput() {
-
+        etShopDate.setText("")
+        etQuantity.setText("")
+        etItem.setText("")
+        etNote.setText("")
     }
 
     companion object {
