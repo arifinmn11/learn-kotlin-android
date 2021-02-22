@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/addItemFragment"
-        android:name="com.example.latihanframgent.presentations.AddItemFragment"
+        android:name="com.example.latihanframgent.presentations.additem.AddItemFragment"
         android:label="fragment_add_item"
         tools:layout="@layout/fragment_add_item" />
     <fragment
         android:id="@+id/listItemFragment"
-        android:name="com.example.latihanframgent.presentations.ListItemFragment"
+        android:name="com.example.latihanframgent.presentations.itemlist.ListItemFragment"
         android:label="fragment_list_item"
         tools:layout="@layout/fragment_list_item" />
     <activity
         android:id="@+id/splashScreen"
-        android:name="com.example.latihanframgent.presentations.SplashScreen"
+        android:name="com.example.latihanframgent.presentations.splashscreen.SplashScreen"
         android:label="activity_splash_sreen"
         app:action="@string/fab_transformation_scrim_behavior"
         tools:layout="@layout/activity_splash_sreen" />

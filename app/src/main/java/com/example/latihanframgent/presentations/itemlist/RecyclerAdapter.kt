@@ -1,6 +1,5 @@
-package com.example.latihanframgent.presentations
+package com.example.latihanframgent.presentations.itemlist
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.example.latihanframgent.presentations
+package com.example.latihanframgent.presentations.splashscreen
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.latihanframgent.R
+import com.example.latihanframgent.presentations.mainactivity.MainActivity
 
 
 class SplashScreen : AppCompatActivity() {

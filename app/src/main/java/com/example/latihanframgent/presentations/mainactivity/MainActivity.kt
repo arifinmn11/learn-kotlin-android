@@ -1,4 +1,4 @@
-package com.example.latihanframgent.presentations
+package com.example.latihanframgent.presentations.mainactivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

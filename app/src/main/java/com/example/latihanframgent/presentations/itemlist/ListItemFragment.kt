@@ -1,4 +1,4 @@
-package com.example.latihanframgent.presentations
+package com.example.latihanframgent.presentations.itemlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,11 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.latihanframgent.R
-import com.example.latihanframgent.utils.ADD_ITEM
-import com.example.latihanframgent.utils.Item
-import com.example.latihanframgent.utils.ItemList
 import kotlinx.android.synthetic.main.fragment_list_item.*
 
 
@@ -35,7 +31,8 @@ class ListItemFragment : Fragment() {
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-            adapter = RecyclerAdapter()
+            adapter =
+                RecyclerAdapter()
         }
     }
 
