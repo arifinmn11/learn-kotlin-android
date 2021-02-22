@@ -13,6 +13,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(), OnNavigationListener {
     private lateinit var addItemFragment: AddItemFragment;
     private lateinit var listItemFragment: ListItemFragment;
+    private lateinit var splashFragment: SplashFragment;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -57,5 +58,10 @@ class MainActivity : AppCompatActivity(), OnNavigationListener {
 
     override fun addItem(item: Item) {
         ItemList.add(item)
+    }
+
+    override fun onSplash() {
+        splashFragment = SplashFragment.newInstance(this)
+        switchFragment(splashFragment)
     }
 }
