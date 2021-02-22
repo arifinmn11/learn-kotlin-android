@@ -11,11 +11,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.latihanframgent.R
 import com.example.latihanframgent.utils.Item
+import com.example.latihanframgent.utils.ItemList
 import kotlinx.android.synthetic.main.fragment_add_item.*
 import java.util.*
 
 
-class AddItemFragment(private val onNavigationListener: OnNavigationListener) : Fragment() {
+class AddItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -51,7 +52,6 @@ class AddItemFragment(private val onNavigationListener: OnNavigationListener) : 
             datePickerDialog?.show()
         })
 
-
         buttonAdd.setOnClickListener {
             if (etShopDate.text.toString() != "" &&
                 etQuantity.text.toString() != "" &&
@@ -64,8 +64,9 @@ class AddItemFragment(private val onNavigationListener: OnNavigationListener) : 
                     note = etNote.text.toString(),
                     itemName = etItem.text.toString()
                 )
-                onNavigationListener.addItem(item)
+                ItemList.add(item)
                 clearInput()
+
                 Toast.makeText(
                     activity,
                     "Item : ${item.itemName} has been added",
@@ -88,9 +89,4 @@ class AddItemFragment(private val onNavigationListener: OnNavigationListener) : 
         etNote.setText("")
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(onNavigationListener: OnNavigationListener) =
-            AddItemFragment(onNavigationListener)
-    }
 }

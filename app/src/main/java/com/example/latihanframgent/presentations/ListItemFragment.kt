@@ -14,11 +14,7 @@ import com.example.latihanframgent.utils.ItemList
 import kotlinx.android.synthetic.main.fragment_list_item.*
 
 
-class ListItemFragment(private val onNavigationListener: OnNavigationListener) : Fragment() {
-
-
-    private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
+class ListItemFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +39,4 @@ class ListItemFragment(private val onNavigationListener: OnNavigationListener) :
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(onNavigationListener: OnNavigationListener) =
-            ListItemFragment(onNavigationListener)
-    }
 }

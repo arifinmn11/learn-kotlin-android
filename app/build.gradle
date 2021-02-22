@@ -47,4 +47,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0' // library untuk recyclerView
     implementation 'androidx.cardview:cardview:1.0.0' // library untuk cardView
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0-alpha03"
+    //noinspection GradleDependency
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0-alpha03"
+    //noinspection GradleDependency
+
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_menu"
+    app:startDestination="@id/addItemFragment">
+
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.example.latihanframgent.presentations.AddItemFragment"
+        android:label="fragment_add_item"
+        tools:layout="@layout/fragment_add_item" />
+    <fragment
+        android:id="@+id/listItemFragment"
+        android:name="com.example.latihanframgent.presentations.ListItemFragment"
+        android:label="fragment_list_item"
+        tools:layout="@layout/fragment_list_item" />
+    <activity
+        android:id="@+id/splashScreen"
+        android:name="com.example.latihanframgent.presentations.SplashScreen"
+        android:label="activity_splash_sreen"
+        app:action="@string/fab_transformation_scrim_behavior"
+        tools:layout="@layout/activity_splash_sreen" />
+    <action
+        android:id="@+id/action_global_addItemFragment"
+        app:destination="@id/addItemFragment"
+        app:enterAnim="@anim/fragment_fade_enter" /><action android:id="@+id/action_global_listItemFragment" app:destination="@id/listItemFragment"/>
+</navigation>
