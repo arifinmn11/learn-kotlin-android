@@ -5,15 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.latihanframgent.R
-import com.example.latihanframgent.interfaces.onNavigationListener
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class SplashScreenFragment(private val onNavigationListener: onNavigationListener) : Fragment() {
-
+class SplashScreenFragment : Fragment() {
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,17 +29,17 @@ class SplashScreenFragment(private val onNavigationListener: onNavigationListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+
         GlobalScope.launch {
             delay(2000)
-            onNavigationListener.onSplash()
+            navController.navigate(R.id.action_splashScreenFragment_to_registrationFragment2)
         }
-
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(onNavigationListener: onNavigationListener) =
-            SplashScreenFragment(onNavigationListener)
-
-    }
+//    companion object {
+//        @JvmStatic
+//        fun newInstance(onNavigationListener: onNavigationListener) =
+//            SplashScreenFragment(onNavigationListener)
+//    }
 }

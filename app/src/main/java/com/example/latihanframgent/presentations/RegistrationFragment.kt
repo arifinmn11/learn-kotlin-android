@@ -5,12 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.latihanframgent.R
 import com.example.latihanframgent.interfaces.onNavigationListener
+import com.example.latihanframgent.utils.PLAYER1_PARAM
+import com.example.latihanframgent.utils.PLAYER2_PARAM
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_registration.*
 
 
-class RegistrationFragment(private val onNavigationListener: onNavigationListener) : Fragment() {
+class RegistrationFragment : Fragment(), View.OnClickListener {
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,19 +32,24 @@ class RegistrationFragment(private val onNavigationListener: onNavigationListene
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        btnPlay.setOnClickListener {
-            val player1 = etPlayerName1.text
-            val player2 = etPlayerName2.text
-            onNavigationListener.onRegistration(
-                player1 = player1.toString(),
-                player2 = player2.toString()
-            )
-        }
+        navController = Navigation.findNavController(view)
+        btnPlay.setOnClickListener(this)
+
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(onNavigationListener: onNavigationListener) =
-            RegistrationFragment(onNavigationListener)
+    override fun onClick(view: View?) {
+        when (view) {
+            btnPlay -> {
+//                if (etPlayerName1.text.toString() != "" && etPlayerName2.text.toString() != "") {
+//
+//                    Toast.makeText(activity, "Input Player not be blank", Toast.LENGTH_LONG).show()
+//
+//                } else {
+//                    PLAYER1_PARAM = etPlayerName1.text.toString()
+//                    PLAYER2_PARAM = etPlayerName2.text.toString()
+                    navController.navigate(R.id.action_registrationFragment_to_boardFragment)
+//                }
+            }
+        }
     }
 }

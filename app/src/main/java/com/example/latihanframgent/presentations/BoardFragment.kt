@@ -12,21 +12,17 @@ import com.example.latihanframgent.utils.*
 import kotlinx.android.synthetic.main.fragment_board.*
 
 
-class BoardFragment(val onNavigationListener: onNavigationListener) : Fragment() {
+class BoardFragment : Fragment() {
     var activePlayer = ""
     var listBoard = board
 
-    private var player1: String? = ""
-    private var player2: String? = ""
+    private var player1: String? = PLAYER1_PARAM
+    private var player2: String? = PLAYER2_PARAM
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            player1 = it.getString(PLAYER1_PARAM)
-            player2 = it.getString(PLAYER2_PARAM)
-            activePlayer = player1.toString()
-        }
+
     }
 
     override fun onCreateView(
@@ -131,20 +127,4 @@ class BoardFragment(val onNavigationListener: onNavigationListener) : Fragment()
         return boardCheckerData(cellId, board)
     }
 
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(
-            player1: String,
-            player2: String,
-            navigationListener: onNavigationListener
-        ) =
-            BoardFragment(navigationListener).apply {
-                arguments = Bundle().apply {
-                    putString(PLAYER1_PARAM, player1)
-                    putString(PLAYER2_PARAM, player2)
-                }
-            }
-    }
 }

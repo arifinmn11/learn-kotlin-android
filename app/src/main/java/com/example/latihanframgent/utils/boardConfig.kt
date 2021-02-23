@@ -43,6 +43,6 @@ fun boardCheckerData(cellId: Int, data: Array<Array<BoardState>>): Boolean {
 const val STATUS_WINNER = " is a winner"
 const val STATUS_TURN = "'s turn"
 
-const val PLAYER1_PARAM = "player1"
-const val PLAYER2_PARAM = "player2"
+var PLAYER1_PARAM = "player1"
+var PLAYER2_PARAM = "player2"
 
