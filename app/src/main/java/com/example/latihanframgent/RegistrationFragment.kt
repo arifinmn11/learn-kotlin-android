@@ -26,12 +26,17 @@ class RegistrationFragment(val onNavigationListener: OnNavigationListener) : Fra
             button2.setOnClickListener {
                 val personName = editTextTextPersonName.text
                 viewModel.sayHello("hi .. ${personName}")
+
                 onNavigationListener.onHello()
             }
         }
         // Inflate the layout for this fragment
         return binding.root
     }
+
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//    }
 
     companion object {
 
