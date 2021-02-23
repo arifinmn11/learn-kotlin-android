@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.latihanframgent.R
 import com.example.latihanframgent.utils.Item
-import com.example.latihanframgent.utils.ItemList
 
 
 class RecyclerAdapter(private val items: MutableList<Item>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {

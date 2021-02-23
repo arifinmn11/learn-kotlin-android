@@ -2,18 +2,12 @@ package com.example.latihanframgent.presentations.mainactivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.latihanframgent.R
-import com.example.latihanframgent.utils.Item
-import com.example.latihanframgent.utils.ItemList
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController;
