@@ -5,23 +5,29 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.latihanframgent.R
+import com.example.latihanframgent.databinding.FragmentListItemBinding
+import com.example.latihanframgent.presentations.viewmodel.ItemViewModel
 import kotlinx.android.synthetic.main.fragment_list_item.*
 
 
 class ListItemFragment : Fragment() {
+    lateinit var viewModel: ItemViewModel
+    lateinit var binding: FragmentListItemBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(ItemViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list_item, container, false)
+
+        binding = FragmentListItemBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,9 +37,10 @@ class ListItemFragment : Fragment() {
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-            adapter =
-                RecyclerAdapter()
+            val items = viewModel.getItem()
+            adapter = RecyclerAdapter(items);
         }
     }
+
 
 }
