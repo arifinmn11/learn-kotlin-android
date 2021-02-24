@@ -1,3 +1,6 @@
+# Setting gradle
+
+```
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -56,3 +59,31 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+```
+
+- Membuat enum ResourceStatus untuk status yang dignakan pada ResourceState
+```
+enum class ResourceStatus {
+    SUCCESS,
+    FAIL,
+    LOADING
+}
+```
+
+- Membuat ResourceState digunakan untuk penggunaan status ketika menekan tombol button
+```
+class ResourceState(val status: ResourceStatus, val data: Any?, val message: String?) {
+    companion object {
+        fun success(data: Any?) =
+            ResourceState(status = ResourceStatus.SUCCESS, data = data, message = null)
+
+        fun loading() = ResourceState(status = ResourceStatus.LOADING, data = null, message = null)
+
+        fun fail(message: String?) =
+            ResourceState(status = ResourceStatus.FAIL, data = null, message = message)
+    }
+}
+```
+
+- Membuat RegistrationViewModel yang dinakan untuk perpindahan data serta viewmodel dari registration
+
