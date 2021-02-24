@@ -52,10 +52,12 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:hint="Date"
-            android:paddingLeft="10dp"
             android:background="@drawable/rounded_edit_text"
-            android:inputType="text" />
+            android:hint="Date"
+            android:inputType="text"
+            android:paddingLeft="10dp">
+        </EditText>
+
 
         <EditText
             android:id="@+id/etItem"
@@ -64,10 +66,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:hint="Name Item"
-            android:paddingLeft="10dp"
             android:background="@drawable/rounded_edit_text"
-            android:inputType="text" />
+            android:hint="Name Item"
+            android:inputType="text"
+            android:paddingLeft="10dp" />
 
         <EditText
             android:id="@+id/etQuantity"
@@ -76,10 +78,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:hint="Quantity"
-            android:paddingLeft="10dp"
             android:background="@drawable/rounded_edit_text"
-            android:inputType="numberDecimal" />
+            android:hint="Quantity"
+            android:inputType="numberDecimal"
+            android:paddingLeft="10dp" />
 
         <EditText
             android:id="@+id/etNote"
@@ -88,10 +90,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:hint="Note"
-            android:paddingLeft="10dp"
             android:background="@drawable/rounded_edit_text"
-            android:inputType="text" />
+            android:hint="Note"
+            android:inputType="text"
+            android:paddingLeft="10dp" />
     </LinearLayout>
 
     <Button

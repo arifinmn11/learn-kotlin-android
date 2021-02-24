@@ -20,9 +20,15 @@
         android:name="com.example.latihanframgent.presentations.splashscreen.SplashScreen"
         android:label="activity_splash_sreen"
         app:action="@string/fab_transformation_scrim_behavior"
-        tools:layout="@layout/activity_splash_sreen" />
+        tools:layout="@layout/activity_splash_srceen" />
     <action
         android:id="@+id/action_global_addItemFragment"
         app:destination="@id/addItemFragment"
-        app:enterAnim="@anim/fragment_fade_enter" /><action android:id="@+id/action_global_listItemFragment" app:destination="@id/listItemFragment"/>
+        app:enterAnim="@android:anim/slide_in_left"
+        app:launchSingleTop="true" />
+    <action
+        android:id="@+id/action_global_listItemFragment"
+        app:destination="@id/listItemFragment"
+        app:enterAnim="@android:anim/slide_out_right"
+        app:launchSingleTop="true" />
 </navigation>

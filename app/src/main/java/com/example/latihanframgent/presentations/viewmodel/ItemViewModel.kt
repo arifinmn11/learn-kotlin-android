@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.latihanframgent.utils.Item
-class ItemViewModel : ViewModel() {
+import com.example.latihanframgent.utils.ResourceState
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-    private val TAG = "ItemViewModel"
+class ItemViewModel : ViewModel() {
 
     private var ListItem = mutableListOf<Item>();
 
@@ -17,4 +20,5 @@ class ItemViewModel : ViewModel() {
     fun getItem(): MutableList<Item> {
         return ListItem
     }
+
 }

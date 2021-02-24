@@ -12,7 +12,7 @@ import com.example.latihanframgent.presentations.mainactivity.MainActivity
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_sreen)
+        setContentView(R.layout.activity_splash_srceen)
 
         Handler().postDelayed(Runnable {
             val i = Intent(this, MainActivity::class.java)

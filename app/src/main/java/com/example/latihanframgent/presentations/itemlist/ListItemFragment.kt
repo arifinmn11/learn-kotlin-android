@@ -38,6 +38,10 @@ class ListItemFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             val items = viewModel.getItem()
+            println(items.size)
+            for(a in items) {
+                println("LOOING -> ${a.itemName}")
+            }
             adapter = RecyclerAdapter(items);
         }
     }
