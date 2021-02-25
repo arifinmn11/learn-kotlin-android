@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.latihanframgent.databinding.FragmentListItemBinding
@@ -19,28 +20,25 @@ class ListItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ItemViewModel::class.java)
+        subscribe()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentListItemBinding.inflate(layoutInflater)
+        viewModel.getItem()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        recycler_view.apply {
-            // set a LinearLayoutManager to handle Android
-            // RecyclerView behavior
-            layoutManager = LinearLayoutManager(activity)
-            // set the custom adapter to the RecyclerView
-            val items = viewModel.getItem()
-            adapter = RecyclerAdapter(items);
-        }
+    private fun subscribe() {
+        viewModel.getItemLive.observe(this, Observer {
+            recycler_view.apply {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = RecyclerAdapter(it);
+            }
+        })
     }
-
 
 }

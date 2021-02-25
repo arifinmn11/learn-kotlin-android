@@ -13,12 +13,13 @@ class ItemViewModel : ViewModel() {
 
     private var ListItem = mutableListOf<Item>();
 
+    val getItemLive: MutableLiveData<MutableList<Item>> = MutableLiveData()
+
     fun addItem(item: Item) {
         ListItem.add(item)
     }
 
-    fun getItem(): MutableList<Item> {
-        return ListItem
+    fun getItem() {
+        getItemLive.value = ListItem
     }
-
 }

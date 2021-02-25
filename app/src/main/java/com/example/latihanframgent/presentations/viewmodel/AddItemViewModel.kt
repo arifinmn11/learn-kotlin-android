@@ -10,6 +10,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class AddItemViewModel : ViewModel() {
+
     private var _isValid = MutableLiveData<ResourceState>()
     val isValid: LiveData<ResourceState>
         get() {
@@ -19,7 +20,7 @@ class AddItemViewModel : ViewModel() {
     fun validationItem(item: Item) {
         GlobalScope.launch {
             _isValid.postValue(ResourceState.loading())
-            delay(3000)
+            delay(2000)
             if (item.date.isNullOrBlank()) {
                 _isValid.postValue(ResourceState.fail("Date can not empty"))
             } else if (item.itemName.isNullOrBlank()) {
