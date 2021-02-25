@@ -9,7 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class AddItemViewModel : ViewModel() {
+class ValidationItemModel : ViewModel() {
 
     private var _isValid = MutableLiveData<ResourceState>()
     val isValid: LiveData<ResourceState>

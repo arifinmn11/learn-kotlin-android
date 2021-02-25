@@ -9,27 +9,36 @@ import com.example.latihanframgent.R
 import com.example.latihanframgent.utils.Item
 
 
-class RecyclerAdapter(private val items: MutableList<Item>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(private val itemClickListener: ItemClickListener) :
+    RecyclerView.Adapter<ItemViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var itemName: TextView = itemView.findViewById(R.id.tvItemName)
-        var itemQuantity: TextView = itemView.findViewById(R.id.tvQuantity)
-        var itemNote: TextView = itemView.findViewById(R.id.tvNote)
-        var itemDate: TextView = itemView.findViewById(R.id.tvDate)
-    }
+    var items = ArrayList<Item>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_view, parent, false)
-        return ViewHolder(v)
-    }
+//    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        var itemName: TextView = itemView.findViewById(R.id.tvItemName)
+//        var itemQuantity: TextView = itemView.findViewById(R.id.tvQuantity)
+//        var itemNote: TextView = itemView.findViewById(R.id.tvNote)
+//        var itemDate: TextView = itemView.findViewById(R.id.tvDate)
+//    }
+
 
     override fun getItemCount(): Int = items.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemName.text = items[position].itemName
-        holder.itemQuantity.text = items[position].quantity.toString()
-        holder.itemNote.text = items[position].note
-        holder.itemDate.text = items[position].date
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        val item = items[position]
+        holder.bind(item)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val itemView = inflater.inflate(R.layout.card_view, parent, false)
+        return ItemViewHolder(itemView, itemClickListener)
+    }
+
+    fun setData(newItemList: List<Item>) {
+        items.clear()
+        items.addAll(newItemList)
+        notifyDataSetChanged()
     }
 }

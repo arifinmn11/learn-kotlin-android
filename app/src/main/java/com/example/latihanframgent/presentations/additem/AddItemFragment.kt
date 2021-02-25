@@ -10,11 +10,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
+import com.example.latihanframgent.R
 import com.example.latihanframgent.databinding.FragmentAddItemBinding
 import com.example.latihanframgent.presentations.components.LoadingDialog
-import com.example.latihanframgent.presentations.viewmodel.AddItemViewModel
+import com.example.latihanframgent.presentations.itemlist.ItemRepository
+import com.example.latihanframgent.presentations.viewmodel.ValidationItemModel
 import com.example.latihanframgent.presentations.viewmodel.ItemViewModel
 import com.example.latihanframgent.utils.Item
 import com.example.latihanframgent.utils.ResourceStatus
@@ -22,7 +26,7 @@ import java.util.*
 
 
 class AddItemFragment : Fragment() {
-    lateinit var viewModel: AddItemViewModel
+    lateinit var model: ValidationItemModel
     lateinit var sharedViewModel: ItemViewModel
     lateinit var binding: FragmentAddItemBinding
     lateinit var loadingDialog: AlertDialog
@@ -73,7 +77,7 @@ class AddItemFragment : Fragment() {
                     note = etNote.text.toString(),
                     itemName = etItem.text.toString()
                 )
-                viewModel.validationItem(item!!)
+                model.validationItem(item!!)
 
             }
         }
@@ -81,17 +85,23 @@ class AddItemFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        sharedViewModel = ViewModelProvider(requireActivity()).get(ItemViewModel::class.java)
-        viewModel = ViewModelProvider(this).get(AddItemViewModel::class.java)
+        sharedViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val repo = ItemRepository()
+                return ItemViewModel(repo) as T
+            }
+
+        }).get(ItemViewModel::class.java)
+        model = ViewModelProvider(this).get(ValidationItemModel::class.java)
     }
 
-    private fun subscribe() = viewModel.isValid.observe(this) {
+    private fun subscribe() = model.isValid.observe(this) {
         when (it.status) {
             ResourceStatus.LOADING -> {
                 loadingDialog.show()
             }
             ResourceStatus.SUCCESS -> {
-                sharedViewModel.addItem(item!!)
+                sharedViewModel.onAddItem(item!!)
                 clearInput()
                 loadingDialog.hide()
                 Toast.makeText(
@@ -99,6 +109,7 @@ class AddItemFragment : Fragment() {
                     "Data has been saved!",
                     Toast.LENGTH_SHORT
                 ).show()
+                findNavController().navigate(R.id.action_global_listItemFragment)
             }
             ResourceStatus.FAIL -> {
                 loadingDialog.hide()
