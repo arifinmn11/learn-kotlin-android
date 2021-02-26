@@ -3,7 +3,7 @@ package com.example.latihanframgent.presentations.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.latihanframgent.utils.Item
+import com.example.latihanframgent.data.model.Item
 import com.example.latihanframgent.utils.ResourceState
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

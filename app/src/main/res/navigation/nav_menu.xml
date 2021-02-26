@@ -14,7 +14,12 @@
         android:id="@+id/listItemFragment"
         android:name="com.example.latihanframgent.presentations.itemlist.ListItemFragment"
         android:label="fragment_list_item"
-        tools:layout="@layout/fragment_list_item" />
+        tools:layout="@layout/fragment_list_item" >
+        <action
+            android:id="@+id/action_listItemFragment_to_editItemFragment"
+            app:destination="@id/editItemFragment"
+            app:launchSingleTop="true" />
+    </fragment>
     <activity
         android:id="@+id/splashScreen"
         android:name="com.example.latihanframgent.presentations.splashscreen.SplashScreen"
@@ -31,4 +36,13 @@
         app:destination="@id/listItemFragment"
         app:enterAnim="@android:anim/slide_out_right"
         app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/editItemFragment"
+        android:name="com.example.latihanframgent.presentations.itemlist.EditItemFragment"
+        android:label="fragment_edit_item"
+        tools:layout="@layout/fragment_edit_item" >
+        <argument
+            android:name="item_get"
+            app:argType="com.example.latihanframgent.data.model.Item" />
+    </fragment>
 </navigation>

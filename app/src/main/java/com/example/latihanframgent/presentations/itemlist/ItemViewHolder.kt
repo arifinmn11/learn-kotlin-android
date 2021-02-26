@@ -1,16 +1,18 @@
 package com.example.latihanframgent.presentations.itemlist
 
-import android.view.KeyEvent
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.latihanframgent.R
 import com.example.latihanframgent.databinding.CardViewBinding
-import com.example.latihanframgent.utils.Item
+import com.example.latihanframgent.data.model.Item
+
 
 class ItemViewHolder(view: View, val clickListener: ItemClickListener) :
     RecyclerView.ViewHolder(view) {
     val binding = CardViewBinding.bind(view)
+
 
     fun bind(item: Item) {
         binding.apply {
@@ -22,7 +24,7 @@ class ItemViewHolder(view: View, val clickListener: ItemClickListener) :
                 clickListener.onDelete(item)
             }
             cardItem.setOnClickListener {
-                println("PRESS!")
+                clickListener.onEdit(item)
             }
         }
     }

@@ -16,11 +16,11 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.latihanframgent.R
 import com.example.latihanframgent.databinding.FragmentAddItemBinding
-import com.example.latihanframgent.presentations.components.LoadingDialog
-import com.example.latihanframgent.presentations.itemlist.ItemRepository
+import com.example.latihanframgent.utils.components.LoadingDialog
+import com.example.latihanframgent.data.repository.ItemRepository
 import com.example.latihanframgent.presentations.viewmodel.ValidationItemModel
 import com.example.latihanframgent.presentations.viewmodel.ItemViewModel
-import com.example.latihanframgent.utils.Item
+import com.example.latihanframgent.data.model.Item
 import com.example.latihanframgent.utils.ResourceStatus
 import java.util.*
 
@@ -72,6 +72,7 @@ class AddItemFragment : Fragment() {
                     intQty = etQuantity.text.toString().toInt()
                 }
                 item = Item(
+                    id = UUID.randomUUID().toString(),
                     date = etShopDate.text.toString(),
                     quantity = intQty,
                     note = etNote.text.toString(),
@@ -87,7 +88,8 @@ class AddItemFragment : Fragment() {
     private fun initViewModel() {
         sharedViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repo = ItemRepository()
+                val repo =
+                    ItemRepository()
                 return ItemViewModel(repo) as T
             }
 
@@ -111,6 +113,7 @@ class AddItemFragment : Fragment() {
                 ).show()
                 findNavController().navigate(R.id.action_global_listItemFragment)
             }
+
             ResourceStatus.FAIL -> {
                 loadingDialog.hide()
                 Toast.makeText(

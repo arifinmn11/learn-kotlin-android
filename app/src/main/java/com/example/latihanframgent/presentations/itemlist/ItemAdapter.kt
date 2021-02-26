@@ -1,15 +1,13 @@
 package com.example.latihanframgent.presentations.itemlist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.latihanframgent.R
-import com.example.latihanframgent.utils.Item
+import com.example.latihanframgent.data.model.Item
 
 
-class RecyclerAdapter(private val itemClickListener: ItemClickListener) :
+class ItemAdapter(private val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
     var items = ArrayList<Item>()
