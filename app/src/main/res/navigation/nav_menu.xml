@@ -21,7 +21,12 @@
         android:id="@+id/formFragment"
         android:name="com.example.latihanframgent.form.FormFragment"
         android:label="fragment_form"
-        tools:layout="@layout/fragment_form" />
+        tools:layout="@layout/fragment_form" >
+        <action
+            android:id="@+id/action_formFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:popUpTo="@id/menuFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.latihanframgent.list.ListFragment"
