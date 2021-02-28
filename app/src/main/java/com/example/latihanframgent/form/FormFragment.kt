@@ -33,7 +33,6 @@ class FormFragment : Fragment() {
         arguments?.let {
             itemValue = it.getParcelable<Item>("edit_item")
         }
-
         initModel()
         subscribe()
     }
