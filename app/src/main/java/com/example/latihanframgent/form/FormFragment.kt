@@ -3,13 +3,12 @@ package com.example.latihanframgent.form
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -19,13 +18,15 @@ import com.example.latihanframgent.R
 import com.example.latihanframgent.data.model.Item
 import com.example.latihanframgent.data.repository.ItemRepository
 import com.example.latihanframgent.databinding.FragmentFormBinding
+import com.example.latihanframgent.utils.ResourceStatus
+import com.example.latihanframgent.utils.components.LoadingDialog
 import java.util.*
 
 class FormFragment : Fragment() {
     private var itemValue: Item? = null
     private lateinit var binding: FragmentFormBinding
     private lateinit var viewModel: FormViewModel
-//    private var date: String? = null
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class FormFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        loadingDialog = LoadingDialog.build(requireContext())
         binding = FragmentFormBinding.inflate(layoutInflater)
         binding.apply {
 
@@ -100,7 +102,7 @@ class FormFragment : Fragment() {
                         )
                     }
                 }
-                viewModel.save(itemValue!!)
+                viewModel.validation(itemValue!!)
             }
             cancelBtn.setOnClickListener {
                 Navigation.findNavController(requireView()).popBackStack()
@@ -122,6 +124,27 @@ class FormFragment : Fragment() {
     private fun subscribe() {
         viewModel.itemLiveData.observe(this) {
             findNavController().navigate(R.id.action_formFragment_to_listFragment)
+        }
+
+        viewModel.isValid.observe(this) {
+            when (it.status) {
+                ResourceStatus.LOADING -> {
+                    loadingDialog.show()
+                }
+                ResourceStatus.SUCCESS -> {
+                    viewModel.save(itemValue!!)
+                    loadingDialog.hide()
+                }
+                ResourceStatus.FAIL -> {
+                    loadingDialog.hide()
+                    Toast.makeText(
+                        requireContext(),
+                        it.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            }
         }
     }
 
