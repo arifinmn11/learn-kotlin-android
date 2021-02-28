@@ -1,5 +1,6 @@
 package com.example.latihanframgent.data.repository
 
+import android.util.Log
 import com.example.latihanframgent.data.model.Item
 import java.time.Instant
 import java.time.LocalDate
@@ -33,12 +34,18 @@ class ItemRepository : ItemRepositoryInterface {
     }
 
     override fun list(): List<Item> = itemList
-    override fun save(item: Item): Item {
-        if (item.id == "") {
-            item.id = UUID.randomUUID().toString()
-            itemList.add(item)
+    override fun save(data: Item): Item {
+        if (data.id == "") {
+            data.id = UUID.randomUUID().toString()
+            itemList.add(data)
+        } else {
+            val item = itemList.filter {
+                it.id == data.id
+            }
+            val index = itemList.indexOf(item.single())
+            itemList[index] = data
         }
-        return item
+        return data
     }
 
     override fun delete(item: Item): Item {
@@ -46,6 +53,9 @@ class ItemRepository : ItemRepositoryInterface {
         itemList.removeAt(index)
         return item
     }
+
+    override fun findByItem(item: Item): Item = itemList?.get(itemList.indexOf(item))
+
     //    override fun add(item: Item) {
 //        itemList.add(item)
 //    }

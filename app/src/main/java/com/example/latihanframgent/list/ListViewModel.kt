@@ -11,6 +11,7 @@ class ListViewModel(private val repository: ItemRepositoryInterface) : ViewModel
     ItemClickListener {
 
     private var _itemsLiveData = MutableLiveData<List<Item>>()
+    private var _itemLiveData = MutableLiveData<Item>()
 
     val itemsLiveData: LiveData<List<Item>>
         get() {
@@ -18,13 +19,26 @@ class ListViewModel(private val repository: ItemRepositoryInterface) : ViewModel
             return _itemsLiveData
         }
 
-    fun loadItemData() {
+    val itemLiveData: LiveData<Item>
+        get() {
+            return _itemLiveData
+        }
+
+    private fun loadItemData() {
         _itemsLiveData.value = repository.list()
+    }
+
+    private fun getItemData(item: Item) {
+        _itemLiveData.value = repository.findByItem(item)
     }
 
     override fun onDelete(item: Item) {
         repository.delete(item)
         loadItemData()
+    }
+
+    override fun onEdit(item: Item) {
+        getItemData(item)
     }
 
 }

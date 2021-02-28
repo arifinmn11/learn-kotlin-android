@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -21,12 +22,17 @@ import com.example.latihanframgent.databinding.FragmentFormBinding
 import java.util.*
 
 class FormFragment : Fragment() {
+    private var itemValue: Item? = null
     private lateinit var binding: FragmentFormBinding
     private lateinit var viewModel: FormViewModel
 //    private var date: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            itemValue = it.getParcelable<Item>("edit_item")
+        }
+
         initModel()
         subscribe()
     }
@@ -38,6 +44,15 @@ class FormFragment : Fragment() {
         binding = FragmentFormBinding.inflate(layoutInflater)
         binding.apply {
 
+            itemValue?.apply {
+                submitBtn.text = "UPDATE"
+                titleItem.text = "EDIT ITEM"
+
+                dateTiet.setText(date)
+                nameTiet.setText(name)
+                quantityTiet.setText(quantity.toString())
+                noteTiet.setText(note)
+            }
 
             dateTiet.inputType = InputType.TYPE_NULL
             val calendar = Calendar.getInstance()
@@ -57,21 +72,35 @@ class FormFragment : Fragment() {
                 datePickerDialog?.show()
             })
 
-
             submitBtn.setOnClickListener {
                 val quantity: Int = if (quantityEt.editText?.text.toString().isNullOrEmpty()) {
                     0
                 } else {
                     quantityEt.editText?.text.toString().toInt()
                 }
-                val item = Item(
-                    note = noteEt.editText?.text.toString(),
-                    name = nameEt.editText?.text.toString(),
-                    date = dateEt.editText?.text.toString(),
-                    quantity = quantity,
-                    id = ""
-                )
-                viewModel.save(item)
+
+                if (itemValue == null) {
+                    //add
+                    itemValue = Item(
+                        note = noteEt.editText?.text.toString(),
+                        name = nameEt.editText?.text.toString(),
+                        date = dateEt.editText?.text.toString(),
+                        quantity = quantity,
+                        id = ""
+                    )
+                } else {
+                    //update
+                    itemValue?.id?.let { it ->
+                        itemValue = Item(
+                            note = noteEt.editText?.text.toString(),
+                            name = nameEt.editText?.text.toString(),
+                            date = dateEt.editText?.text.toString(),
+                            quantity = quantity,
+                            id = it
+                        )
+                    }
+                }
+                viewModel.save(itemValue!!)
             }
             cancelBtn.setOnClickListener {
                 Navigation.findNavController(requireView()).popBackStack()

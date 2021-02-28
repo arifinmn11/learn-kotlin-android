@@ -19,6 +19,9 @@ class ListViewHolder(view: View, private val itemClickListener: ItemClickListene
             deleteBtn.setOnClickListener {
                 itemClickListener.onDelete(item)
             }
+            cardItem.setOnClickListener {
+                itemClickListener.onEdit(item)
+            }
         }
     }
 }
