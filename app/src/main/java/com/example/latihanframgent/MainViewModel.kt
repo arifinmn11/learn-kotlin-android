@@ -1,5 +1,6 @@
 package com.example.latihanframgent
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,9 +15,9 @@ class MainViewModel(private val repository: RepositoryNumberImpl) : ViewModel() 
     val delayTime = 200
 
 
-    init {
-        getNumbers()
-    }
+//    init {
+//        getNumbers()
+//    }
 
     val numbers: LiveData<List<Numbers>>
         get() {
@@ -31,15 +32,20 @@ class MainViewModel(private val repository: RepositoryNumberImpl) : ViewModel() 
     fun addNumber(number: Int) {
         repository.clear()
 
-//        CoroutineScope(Dispatchers.Default).launch {
+        job = CoroutineScope(Dispatchers.Default).launch {
             for (i in 1..number) {
-                if (i % 2 == 0) {
-                    repository.add(Numbers(i, "EVEN"))
-                } else {
-                    repository.add(Numbers(i, "ODD"))
+                launch {
+                    if (i % 2 == 0) {
+                        Log.d("GENAP", "$i GENAP")
+                        repository.add(Numbers(i, "EVEN"))
+                    } else {
+                        Log.d("GANJIL", "$i GANJIL")
+                        repository.add(Numbers(i, "ODD"))
+                    }
+                    Log.d("THREAD", "${Thread.currentThread().name}")
+                    _numbers.postValue(repository.getList())
                 }
-                getNumbers()
             }
-//        }
+        }
     }
 }
