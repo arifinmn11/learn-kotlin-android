@@ -10,6 +10,6 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addUser(user: User)
 
-    @Query("select * from mst_user order by id asc")
+    @Query("select * from mst_user")
     fun readAllData(): List<User>
 }
