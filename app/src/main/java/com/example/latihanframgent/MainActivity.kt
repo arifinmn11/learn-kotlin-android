@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         subscribe()
 
         button_add.setOnClickListener {
-
             val age = edit_text_age.text.toString().toInt()
             val firstname = edit_text_firstname.text.toString()
             val lastname = edit_text_lastname.text.toString()
