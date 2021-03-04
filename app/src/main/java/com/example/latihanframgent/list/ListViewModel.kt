@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.latihanframgent.data.model.Item
+import com.example.latihanframgent.data.repository.ItemRepository
 import com.example.latihanframgent.data.repository.ItemRepositoryInterface
 import com.example.latihanframgent.listeners.ItemClickListener
 
-class ListViewModel(private val repository: ItemRepositoryInterface) : ViewModel(),
+class ListViewModel(private val repository: ItemRepository) : ViewModel(),
     ItemClickListener {
 
     private var _itemsLiveData = MutableLiveData<List<Item>>()
@@ -32,7 +33,7 @@ class ListViewModel(private val repository: ItemRepositoryInterface) : ViewModel
     }
 
     fun getItemData(item: Item) {
-        _itemLiveData.value = repository.findByItem(item)
+        _itemLiveData.value = repository.findById(item)
     }
 
     fun loadItemData(page: Int) {

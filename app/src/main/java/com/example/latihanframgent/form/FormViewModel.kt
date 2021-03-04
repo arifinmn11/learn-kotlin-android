@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.example.latihanframgent.data.model.Item
 import com.example.latihanframgent.data.repository.ItemRepository
 import com.example.latihanframgent.utils.ResourceState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

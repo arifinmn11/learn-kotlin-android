@@ -1,107 +1,66 @@
 package com.example.latihanframgent.data.repository
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import com.example.latihanframgent.data.dao.ItemDao
 import com.example.latihanframgent.data.model.Item
-import java.time.Instant
-import java.time.LocalDate
-import java.util.*
 
-class ItemRepository : ItemRepositoryInterface {
-    companion object {
-        var itemList = arrayListOf(
-            Item(
-                UUID.randomUUID().toString(),
-                "1/1/2020",
-                "123",
-                123,
-                "note"
-            ),
-            Item(
-                UUID.randomUUID().toString(),
-                "2/1/2020",
-                "123",
-                123,
-                "note"
-            ),
-            Item(
-                UUID.randomUUID().toString(),
-                "1/3/2020",
-                "123",
-                123,
-                "note"
-            )
-        )
-    }
+class ItemRepository(private val itemDao: ItemDao) {
 
-    override fun list(): List<Item> = itemList
-    override fun list(page: Int?): List<Item> {
-        val size = itemList.size
-        val from = (page!! * 5)
-        val to = from + 4
-        var limit = if (size - to < 0) {
-            to + (size - to)
+    suspend fun list(): LiveData<List<Item>> = itemDao.getItems()
+    suspend fun list(page: Int?): LiveData<List<Item>> = itemDao.getItems()
+    suspend fun save(item: Item) {
+        if (item.id == 0) {
+            itemDao.addItem(item)
         } else {
-            to
+            itemDao.updateItem(item)
         }
-
-        val items = mutableListOf<Item>()
-        for (i in from until limit) {
-            items.add(itemList[i])
-        }
-
-        return items
+    }
+    suspend fun delete(item: Item) {
+        itemDao.deleteItem(item)
     }
 
-    override fun save(data: Item): Item {
-        if (data.id == "") {
-            data.id = UUID.randomUUID().toString()
-            itemList.add(data)
-        } else {
-            val item = itemList.filter {
-                it.id == data.id
-            }
-            val index = itemList.indexOf(item.single())
-            itemList[index] = data
-        }
-        return data
+    suspend fun findById(item: Item) {
+        itemDao.getItemById(item.id)
     }
 
-    override fun delete(item: Item): Item {
-        val index = itemList.indexOf(item)
-        itemList.removeAt(index)
-        return item
-    }
 
-    override fun findByItem(item: Item): Item = itemList?.get(itemList.indexOf(item))
-
-    //    override fun add(item: Item) {
-//        itemList.add(item)
-//    }
+//    override fun list(page: Int?): List<Item> {
+//        val size = itemList.size
+//        val from = (page!! * 5)
+//        val to = from + 4
+//        var limit = if (size - to < 0) {
+//            to + (size - to)
+//        } else {
+//            to
+//        }
 //
-//    override fun delete(item: Item) {
-//        val itemPos = itemList.indexOf(item)
-//        itemList.removeAt(itemPos)
-//    }
+//        val items = mutableListOf<Item>()
+//        for (i in from until limit) {
+//            items.add(itemList[i])
+//        }
 //
-//    override fun find(item: Item): Item {
+//        return items
+//    }
+
+//    override fun save(data: Item): Item {
+//        if (data.id == 0) {
+//            data.id = 1
+//            itemList.add(data)
+//        } else {
+//            val item = itemList.filter {
+//                it.id == data.id
+//            }
+//            val index = itemList.indexOf(item.single())
+//            itemList[index] = data
+//        }
+//        return data
+//    }
+//    override fun delete(item: Item): Item {
 //        val index = itemList.indexOf(item)
-//        return itemList[index]
-//    }
-//
-//    override fun finById(id: String): Item {
-//        val item = itemList.filter { it.id == id }.single()
-//        println(item.note)
+//        itemList.removeAt(index)
 //        return item
 //    }
 //
-//
-//    override fun update(data: Item): Item {
-//        val item = itemList.filter {
-//            it.id == data.id
-//        }
-//        val index = itemList.indexOf(item.single())
-//        itemList[index] = data
-//        return data
-//    }
+//    override fun findByItem(item: Item): Item = itemList?.get(itemList.indexOf(item))
 
 }

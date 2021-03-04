@@ -15,6 +15,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.latihanframgent.R
+import com.example.latihanframgent.data.database.ItemDatabase
 import com.example.latihanframgent.data.model.Item
 import com.example.latihanframgent.data.repository.ItemRepository
 import com.example.latihanframgent.databinding.FragmentFormBinding
@@ -87,7 +88,7 @@ class FormFragment : Fragment() {
                         name = nameEt.editText?.text.toString(),
                         date = dateEt.editText?.text.toString(),
                         quantity = quantity,
-                        id = ""
+                        id = 0
                     )
                 } else {
                     //update
@@ -113,9 +114,9 @@ class FormFragment : Fragment() {
     private fun initModel() {
         viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repo =
-                    ItemRepository()
-                return FormViewModel(repo) as T
+                val itemDao = ItemDatabase.getDatabase(requireContext()).itemDao()
+                val userRepository = ItemRepository(itemDao)
+                return FormViewModel(userRepository) as T
             }
         }).get(FormViewModel::class.java)
     }

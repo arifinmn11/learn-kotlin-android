@@ -2,16 +2,20 @@ package com.example.latihanframgent.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "mst_item")
 data class Item(
-    var id: String,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
     var date: String,
     var name: String,
     var quantity: Int,
     var note: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString()!!,
+        parcel.readInt()!!,
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readInt()!!,
@@ -22,7 +26,7 @@ data class Item(
     override fun describeContents() = 0
 
     override fun writeToParcel(p0: Parcel?, p1: Int) {
-        p0?.writeString(id)
+        p0?.writeInt(id)
         p0?.writeString(date)
         p0?.writeString(name)
         p0?.writeInt(quantity)

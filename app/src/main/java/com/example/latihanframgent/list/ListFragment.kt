@@ -13,6 +13,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.latihanframgent.R
+import com.example.latihanframgent.data.database.ItemDatabase
 import com.example.latihanframgent.data.repository.ItemRepository
 import com.example.latihanframgent.databinding.FragmentListBinding
 
@@ -59,8 +60,9 @@ class ListFragment : Fragment() {
     private fun initViewModel() {
         viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repo = ItemRepository()
-                return ListViewModel(repo) as T
+                val itemDao = ItemDatabase.getDatabase(requireContext()).itemDao()
+                val userRepository = ItemRepository(itemDao)
+                return ListViewModel(userRepository) as T
             }
         }).get(ListViewModel::class.java)
     }
