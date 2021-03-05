@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:minHeight="300dp"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="16dp"
-    android:layout_marginTop="12dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
     android:layout_marginRight="16dp"
     android:clickable="true"
     android:foreground="?selectableItemBackground"
@@ -31,43 +31,51 @@
                 android:id="@+id/title_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
                 android:text="TUKANG BUBUR NAIK HAJI"
-                />
+                android:textSize="20dp" />
+
             <TextView
                 android:id="@+id/date_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
                 android:text="20 Janurary 2021"
-                />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:orientation="horizontal">
-
+                android:textSize="14dp" />
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:scaleType="fitStart"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <TextView
-                    android:id="@+id/description_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:text="TextView" />
+                android:id="@+id/description_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="TextView" />
 
-        </LinearLayout>
-          <Button
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/link_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </LinearLayout>
     </RelativeLayout>

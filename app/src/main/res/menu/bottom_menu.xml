@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <item
-        android:id="@+id/addItemFragment"
-        android:icon="@drawable/ic_baseline_list_alt_24"
-        android:title="Add" />
-    <item
-        android:id="@+id/listItemFragment"
+        android:id="@+id/newsListFragment"
         android:icon="@drawable/ic_baseline_open_in_browser_24"
-        android:title="List" />
+        android:title="Article" />
+    <item
+        android:id="@+id/webViewFragment"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:title="Browser" />
 </menu>

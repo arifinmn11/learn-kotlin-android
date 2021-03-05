@@ -2,7 +2,7 @@ package com.example.latihanframgent.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseNews(
+data class ArticlesItem(
 
 	@field:SerializedName("publishedAt")
 	val publishedAt: String,
