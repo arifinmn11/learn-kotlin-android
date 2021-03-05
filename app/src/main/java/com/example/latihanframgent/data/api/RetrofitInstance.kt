@@ -1,4 +1,4 @@
-package com.example.latihanframgent.data.repository
+package com.example.latihanframgent.data.api
 
 import com.example.latihanframgent.BuildConfig
 import okhttp3.OkHttpClient
@@ -9,5 +9,5 @@ object RetrofitInstance {
     val okhttp3Client = OkHttpClient.Builder().addInterceptor(ApiKeyInterceptor()).build()
     val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okhttp3Client)
         .addConverterFactory(GsonConverterFactory.create()).build()
-    fun getWeatherApiService() = retrofit.create(NewsApi::class.java)
+    fun getNewsApiService() = retrofit.create(NewsApi::class.java)
 }

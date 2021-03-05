@@ -1,4 +1,4 @@
-package com.example.latihanframgent.data.repository
+package com.example.latihanframgent.data.api
 
 import com.example.latihanframgent.BuildConfig
 import okhttp3.Interceptor
