@@ -1,11 +1,8 @@
 package com.example.latihanframgent.presentation.news_list
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.latihanframgent.data.model.ArticlesItem
-import com.example.latihanframgent.data.model.ResponseArticle
 import com.example.latihanframgent.data.repository.NewsApiRepository
 import com.example.latihanframgent.utils.ResourceState
 import kotlinx.coroutines.CoroutineScope

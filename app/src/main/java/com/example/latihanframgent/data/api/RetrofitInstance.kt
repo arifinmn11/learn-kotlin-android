@@ -9,5 +9,6 @@ object RetrofitInstance {
     val okhttp3Client = OkHttpClient.Builder().addInterceptor(ApiKeyInterceptor()).build()
     val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okhttp3Client)
         .addConverterFactory(GsonConverterFactory.create()).build()
+
     fun getNewsApiService() = retrofit.create(NewsApi::class.java)
 }
