@@ -30,7 +30,6 @@ class NewsListFragment : Fragment() {
     lateinit var loadingDialog: AlertDialog
 
     private var page = 1
-    private var topic = "tesla"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,36 +44,28 @@ class NewsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        newsViewModel.onGetArticlesApi(topic, page)
+        newsViewModel.onGetArticlesApi("tesla", 1)
         binding.apply {
 
             searchButton.setOnClickListener {
-                page = 1
-                pageView.setText(page.toString())
-                topic = searchInput.text.toString()
-                newsViewModel.onGetArticlesApi(topic, page)
+                val input = searchInput.text.toString()
+                newsViewModel.onSearchTopic(input)
             }
 
             searchInput.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                    page = 1
-                    pageView.setText(page.toString())
-                    topic = searchInput.text.toString()
-                    newsViewModel.onGetArticlesApi(topic, page)
+                    val input = searchInput.text.toString()
+                    newsViewModel.onSearchTopic(input)
                 }
                 false
             })
 
             nextButton.setOnClickListener {
-                page++
-                pageView.setText(page.toString())
-                newsViewModel.onGetArticlesApi(topic, page)
+                newsViewModel.onNextPage()
             }
 
             prevButton.setOnClickListener {
-                if (page > 1) page--
-                pageView.setText(page.toString())
-                newsViewModel.onGetArticlesApi(topic, page)
+                newsViewModel.onPrevPage()
             }
 
             rvAdapter = NewsAdapter(newsViewModel)
@@ -92,7 +83,6 @@ class NewsListFragment : Fragment() {
                 val repository = NewsApiRepositoryImpl()
                 return NewsListModel(repository) as T
             }
-
         }).get(NewsListModel::class.java)
     }
 
@@ -103,6 +93,15 @@ class NewsListFragment : Fragment() {
                 ResourceStatus.SUCCESS -> {
                     loadingDialog.hide()
                     val info: ResponseArticle = it.data as ResponseArticle
+
+                    val totalSize = info.totalResults
+                    val size = page * 20
+
+                    binding.apply {
+                        nextButton.isEnabled = size < totalSize
+                        prevButton.isEnabled = page > 1
+                    }
+
                     rvAdapter.setView(info.articles)
                 }
                 ResourceStatus.FAIL -> {
@@ -112,8 +111,23 @@ class NewsListFragment : Fragment() {
             }
         }
 
+        newsViewModel.pageLiveData.observe(this) {
+            binding.apply {
+                pageView.setText(it.toString())
+            }
+            page = it
+            newsViewModel.onGetArticlesApi(newsViewModel.topicLiveData.value.toString(), it)
+        }
+
+        newsViewModel.topicLiveData.observe(this) {
+            binding.apply {
+                pageView.setText("1")
+            }
+            page = 1
+            newsViewModel.onGetArticlesApi(it, 1)
+        }
+
         newsViewModel.linkArticleLiveData.observe(this) {
-            Log.d("SUBSCRIBE", it)
             Navigation.findNavController(requireView()).navigate(
                 R.id.action_global_webViewFragment,
                 bundleOf("link_article" to it)
