@@ -8,6 +8,7 @@ import retrofit2.http.Query
 interface NewsApi {
     @GET("v2/everything")
     suspend fun getCurrentData(
-        @Query("q") keyText: String
+        @Query("q") keyText: String,
+        @Query("page") page: Int
     ): Response<ResponseArticle>
 }

@@ -5,6 +5,6 @@ import com.example.latihanframgent.data.model.ResponseArticle
 import retrofit2.Response
 
 class NewsApiRepositoryImpl : NewsApiRepository {
-    override suspend fun getNews(keyText: String): Response<ResponseArticle> =
-        RetrofitInstance.getNewsApiService().getCurrentData(keyText)
+    override suspend fun getNews(keyText: String, page: Int): Response<ResponseArticle> =
+        RetrofitInstance.getNewsApiService().getCurrentData(keyText, page)
 }

@@ -2,6 +2,7 @@ package com.example.latihanframgent.presentation.news_list
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,10 +25,11 @@ import com.example.latihanframgent.utils.ResourceStatus
 class NewsListFragment : Fragment() {
 
     lateinit var binding: FragmentNewsListBinding
-    lateinit var newsViewModel : NewsListModel
+    lateinit var newsViewModel: NewsListModel
     lateinit var rvAdapter: NewsAdapter
     lateinit var loadingDialog: AlertDialog
 
+    private var page = 1
     private var topic = "tesla"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +45,36 @@ class NewsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        newsViewModel.onGetNewsApi(topic)
+        newsViewModel.onGetArticlesApi(topic, page)
         binding.apply {
 
-            searchButton.setOnClickListener{
-                topic  = searchInput.text.toString()
-                newsViewModel.onGetNewsApi(topic)
+            searchButton.setOnClickListener {
+                page = 1
+                pageView.setText(page.toString())
+                topic = searchInput.text.toString()
+                newsViewModel.onGetArticlesApi(topic, page)
+            }
+
+            searchInput.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                    page = 1
+                    pageView.setText(page.toString())
+                    topic = searchInput.text.toString()
+                    newsViewModel.onGetArticlesApi(topic, page)
+                }
+                false
+            })
+
+            nextButton.setOnClickListener {
+                page++
+                pageView.setText(page.toString())
+                newsViewModel.onGetArticlesApi(topic, page)
+            }
+
+            prevButton.setOnClickListener {
+                if (page > 1) page--
+                pageView.setText(page.toString())
+                newsViewModel.onGetArticlesApi(topic, page)
             }
 
             rvAdapter = NewsAdapter(newsViewModel)
@@ -79,7 +105,7 @@ class NewsListFragment : Fragment() {
                     val info: ResponseArticle = it.data as ResponseArticle
                     rvAdapter.setView(info.articles)
                 }
-                ResourceStatus.FAIL ->  {
+                ResourceStatus.FAIL -> {
                     loadingDialog.hide()
                     Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_LONG).show()
                 }
@@ -88,8 +114,10 @@ class NewsListFragment : Fragment() {
 
         newsViewModel.linkArticleLiveData.observe(this) {
             Log.d("SUBSCRIBE", it)
-            Navigation.findNavController(requireView()).navigate(R.id.action_global_webViewFragment,
-            bundleOf("link_article" to it))
+            Navigation.findNavController(requireView()).navigate(
+                R.id.action_global_webViewFragment,
+                bundleOf("link_article" to it)
+            )
         }
     }
 

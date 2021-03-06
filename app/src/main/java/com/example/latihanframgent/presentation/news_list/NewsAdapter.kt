@@ -1,6 +1,7 @@
 package com.example.latihanframgent.presentation.news_list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.latihanframgent.R
@@ -20,6 +21,7 @@ class NewsAdapter(val onClickListener: OnClickListener): RecyclerView.Adapter<Ne
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val article = articles[position]
         holder.bind(article)
+       
     }
 
     fun setView(data: List<ArticlesItem>) {

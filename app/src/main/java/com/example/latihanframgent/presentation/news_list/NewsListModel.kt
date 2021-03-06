@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NewsListModel(val repoository: NewsApiRepository) : ViewModel(), OnClickListener {
-//    ResponseArticle
+
     private var _newsArticleLiveData = MutableLiveData<ResourceState>()
     private var _linkArticleLiveData = MutableLiveData<String>()
 
@@ -27,10 +27,10 @@ class NewsListModel(val repoository: NewsApiRepository) : ViewModel(), OnClickLi
             return _linkArticleLiveData
         }
 
-    fun onGetNewsApi(keyText: String) {
+    fun onGetArticlesApi(keyText: String, page: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             _newsArticleLiveData.postValue(ResourceState.loading())
-            val response = repoository.getNews(keyText)
+            val response = repoository.getNews(keyText, page)
             if (response.isSuccessful) {
                 response.body()?.let {
                     _newsArticleLiveData.postValue(ResourceState.success(it))
@@ -41,7 +41,7 @@ class NewsListModel(val repoository: NewsApiRepository) : ViewModel(), OnClickLi
         }
     }
 
-    override fun onMoveToLink(link: String) {
+    override fun onMoveToBrowser(link: String) {
         _linkArticleLiveData.postValue(link)
     }
 

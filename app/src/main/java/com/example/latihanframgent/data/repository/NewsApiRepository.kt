@@ -4,5 +4,5 @@ import com.example.latihanframgent.data.model.ResponseArticle
 import retrofit2.Response
 
 interface NewsApiRepository {
-    suspend fun getNews(keyText: String): Response<ResponseArticle>
+    suspend fun getNews(keyText: String, page: Int): Response<ResponseArticle>
 }
