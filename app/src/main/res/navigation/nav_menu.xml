@@ -21,24 +21,10 @@
         android:id="@+id/formFragment"
         android:name="com.example.latihanframgent.form.FormFragment"
         android:label="fragment_form"
-        tools:layout="@layout/fragment_form" >
-        <action
-            android:id="@+id/action_formFragment_to_listFragment"
-            app:destination="@id/listFragment"
-            app:popUpTo="@id/menuFragment" />
-        <argument
-            android:name="edit_item"
-            app:argType="com.example.latihanframgent.data.model.Item"
-            app:nullable="true" />
-    </fragment>
+        tools:layout="@layout/fragment_form" />
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.latihanframgent.list.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
-        <action
-            android:id="@+id/action_listFragment_to_formFragment"
-            app:destination="@id/formFragment"
-            app:popUpTo="@id/menuFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_list" />
 </navigation>

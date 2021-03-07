@@ -1,52 +1,60 @@
 package com.example.latihanframgent.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.latihanframgent.data.model.Item
+import com.example.latihanframgent.data.model.ResponseItem
+import com.example.latihanframgent.data.model.ResponseItems
 import com.example.latihanframgent.data.repository.ItemRepository
-import com.example.latihanframgent.data.repository.ItemRepositoryInterface
 import com.example.latihanframgent.listeners.ItemClickListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withTimeout
 
-class ListViewModel(private val repository: ItemRepository) : ViewModel(),
-    ItemClickListener {
-
-    private var _itemsLiveData = MutableLiveData<List<Item>>()
-    private var _itemLiveData = MutableLiveData<Item>()
-
-    val itemsLiveData: LiveData<List<Item>>
+class ListViewModel(val repository: ItemRepository) : ViewModel(), ItemClickListener {
+    private val _deleteLiveButton = MutableLiveData<Int>()
+    val deleteLiveButton: LiveData<Int>
         get() {
-            return _itemsLiveData
+            return _deleteLiveButton
         }
 
-    val itemLiveData: LiveData<Item>
-        get() {
-            return _itemLiveData
+    fun getItemList() = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+        withTimeout(5000) {
+            var response: ResponseItems? = null
+            try {
+                emit(response)
+                response = repository.getItems()
+            } catch (e: Exception) {
+                response =
+                    ResponseItems(status = 400, message = "Error, try again", data = arrayListOf())
+                emit(response)
+            } finally {
+                emit(response)
+            }
         }
-
-    init {
-        loadItemData(0)
     }
 
-    fun loadItemData() {
-        _itemsLiveData.value = repository.list(0)
-    }
-
-    fun getItemData(item: Item) {
-        _itemLiveData.value = repository.findById(item)
-    }
-
-    fun loadItemData(page: Int) {
-        _itemsLiveData.value = repository.list(page)
+    fun deleteItem(id: Int) = liveData(viewModelScope.coroutineContext + Dispatchers.IO) {
+        withTimeout(5000) {
+            var response: ResponseItem? = null
+            try {
+                emit(response)
+                response = repository.deleteItemById(id)
+            } catch (e: Exception) {
+                response = ResponseItem(status = 400, message = "Error, try again", data = null)
+                emit(response)
+            } finally {
+                emit(response)
+                Log.d("REQUEST", "REQUEST")
+            }
+        }
     }
 
     override fun onDelete(item: Item) {
-        repository.delete(item)
-        loadItemData()
+        _deleteLiveButton.postValue(item.id)
     }
 
     override fun onEdit(item: Item) {
-        getItemData(item)
+        TODO("Not yet implemented")
     }
 
 }

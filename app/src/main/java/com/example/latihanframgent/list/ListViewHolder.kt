@@ -7,12 +7,11 @@ import com.example.latihanframgent.databinding.CardViewItemBinding
 import com.example.latihanframgent.listeners.ItemClickListener
 
 
-class ListViewHolder(view: View, private val itemClickListener: ItemClickListener) :
+class ListViewHolder(view: View, val itemClickListener: ItemClickListener) :
     RecyclerView.ViewHolder(view) {
     private val binding = CardViewItemBinding.bind(view)
     fun bind(item: Item) {
         binding.apply {
-            nameTv.text = item.name
             quantityTv.text = item.quantity.toString()
             dateTv.text = item.date
             noteTv.text = item.note
@@ -20,7 +19,7 @@ class ListViewHolder(view: View, private val itemClickListener: ItemClickListene
                 itemClickListener.onDelete(item)
             }
             cardItem.setOnClickListener {
-                itemClickListener.onEdit(item)
+//                itemClickListener.onDelete(item)
             }
         }
     }
